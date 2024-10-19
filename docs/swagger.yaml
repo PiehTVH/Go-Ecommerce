@@ -1,0 +1,1452 @@
+definitions:
+  types.AddressData:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+    type: object
+  types.Comment:
+    properties:
+      comment:
+        type: string
+      email:
+        type: string
+    type: object
+  types.Login:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  types.NameData:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    type: object
+  types.Rating:
+    properties:
+      rating:
+        type: number
+    type: object
+  types.UpdatePassword:
+    properties:
+      email:
+        type: string
+      newPassword:
+        type: string
+      oldPassword:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/ecommerce/address:
+    post:
+      consumes:
+        - application/json
+      description: user can add address
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: address
+          in: body
+          name: address
+          required: true
+          schema:
+            $ref: "#/definitions/types.AddressData"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add Address
+      tags:
+        - User
+    put:
+      consumes:
+        - application/json
+      description: user can edit address
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: address
+          in: body
+          name: address
+          required: true
+          schema:
+            $ref: "#/definitions/types.AddressData"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Edit Address
+      tags:
+        - User
+  /v1/ecommerce/block-user:
+    put:
+      consumes:
+        - application/json
+      description: block user by the admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: User Email
+          in: body
+          name: user_email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Block user
+      tags:
+        - Admin
+  /v1/ecommerce/cart:
+    get:
+      consumes:
+        - application/json
+      description: user can list their cart
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List Cart
+      tags:
+        - User
+    post:
+      consumes:
+        - application/json
+      description: user can add product to their cart
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+        - description: productId
+          in: body
+          name: productId
+          required: true
+          schema:
+            type: string
+        - description: quantity
+          in: body
+          name: quantity
+          required: true
+          schema:
+            type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add to cart
+      tags:
+        - User
+  /v1/ecommerce/cart/all:
+    post:
+      consumes:
+        - application/json
+      description: user can empty their cart
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Empty Cart
+      tags:
+        - User
+  /v1/ecommerce/cart/coupon:
+    post:
+      consumes:
+        - application/json
+      description: user can apply coupon to their cart
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+        - description: coupon
+          in: body
+          name: coupon
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Apply Coupon
+      tags:
+        - User
+  /v1/ecommerce/cart/remove:
+    post:
+      consumes:
+        - application/json
+      description: user can remove product from their cart
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+        - description: productId
+          in: body
+          name: productId
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Remove from cart
+      tags:
+        - User
+  /v1/ecommerce/cart/update:
+    post:
+      consumes:
+        - application/json
+      description: user can update their cart
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+        - description: productId
+          in: body
+          name: productId
+          required: true
+          schema:
+            type: string
+        - description: quantity
+          in: body
+          name: quantity
+          required: true
+          schema:
+            type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Update Cart
+      tags:
+        - User
+  /v1/ecommerce/category:
+    post:
+      consumes:
+        - application/json
+      description: Add category by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Category
+          in: body
+          name: category
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add Category
+      tags:
+        - Admin
+  /v1/ecommerce/category/:id:
+    delete:
+      consumes:
+        - application/json
+      description: Delete category by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Category ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Delete Category
+      tags:
+        - Admin
+    put:
+      consumes:
+        - application/json
+      description: List all categories from the database by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Category
+          in: body
+          name: category
+          required: true
+          schema:
+            type: string
+        - description: Category ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List all categories
+      tags:
+        - Admin
+  /v1/ecommerce/checkout:
+    post:
+      consumes:
+        - application/json
+      description: user can checkout their order
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Checkout Order
+      tags:
+        - User
+  /v1/ecommerce/comment/{id}:
+    post:
+      consumes:
+        - application/json
+      description: Comment on product
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Comment on product
+      tags:
+        - User
+  /v1/ecommerce/coupon:
+    get:
+      consumes:
+        - application/json
+      description: List all coupons from the database by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List all coupons
+      tags:
+        - Admin
+    post:
+      consumes:
+        - application/json
+      description: Add coupon by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Coupon Name
+          in: body
+          name: name
+          required: true
+          schema:
+            type: string
+        - description: Coupon Discount
+          in: body
+          name: int
+          required: true
+          schema:
+            type: integer
+        - description: Coupon Expiry
+          in: body
+          name: expiry
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add Coupon
+      tags:
+        - Admin
+  /v1/ecommerce/coupon/:id:
+    delete:
+      consumes:
+        - application/json
+      description: Delete coupon by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Coupon ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Delete Coupon
+      tags:
+        - Admin
+  /v1/ecommerce/delete-product/:id:
+    delete:
+      consumes:
+        - application/json
+      description: Delete product by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Delete Product
+      tags:
+        - Admin
+  /v1/ecommerce/favorite:
+    get:
+      consumes:
+        - application/json
+      description: user can list their favorite
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List Favorite
+      tags:
+        - User
+    post:
+      consumes:
+        - application/json
+      description: user can add product to their favorite
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add to Favorite
+      tags:
+        - User
+  /v1/ecommerce/list-category:
+    get:
+      consumes:
+        - application/json
+      description: List all categories
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: List all categories
+      tags:
+        - User
+  /v1/ecommerce/list-orders:
+    get:
+      consumes:
+        - application/json
+      description: List all orders from the database by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List all orders
+      tags:
+        - Admin
+  /v1/ecommerce/list-products-admin:
+    get:
+      consumes:
+        - application/json
+      description: List all products from the database by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List all products
+      tags:
+        - Admin
+  /v1/ecommerce/login:
+    post:
+      consumes:
+        - application/json
+      description: user can login by giving their email and password
+      parameters:
+        - description: login
+          in: body
+          name: login
+          required: true
+          schema:
+            $ref: "#/definitions/types.Login"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: User Login
+      tags:
+        - User
+  /v1/ecommerce/logout:
+    post:
+      consumes:
+        - application/json
+      description: user can logout
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: User Logout
+      tags:
+        - User
+  /v1/ecommerce/name:
+    put:
+      consumes:
+        - application/json
+      description: user can update their name
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: name
+          in: body
+          name: name
+          required: true
+          schema:
+            $ref: "#/definitions/types.NameData"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: update name
+      tags:
+        - User
+  /v1/ecommerce/offer:
+    get:
+      consumes:
+        - application/json
+      description: List all offers from the database by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List all offers
+      tags:
+        - Admin
+    post:
+      consumes:
+        - application/json
+      description: Add offer by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Category ID
+          in: body
+          name: category_id
+          required: true
+          schema:
+            type: integer
+        - description: Discount
+          in: body
+          name: discount
+          required: true
+          schema:
+            type: integer
+        - description: Expiry
+          in: body
+          name: expiry
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add Offer
+      tags:
+        - Admin
+  /v1/ecommerce/offer/:id:
+    put:
+      consumes:
+        - application/json
+      description: Change expiry of the offers by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Offer ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Change Offer Status
+      tags:
+        - Admin
+  /v1/ecommerce/product-link/:id:
+    get:
+      consumes:
+        - application/json
+      description: Get product link
+      parameters:
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get product link
+      tags:
+        - User
+  /v1/ecommerce/product-register:
+    post:
+      consumes:
+        - application/json
+      description: Add product by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Product Name
+          in: body
+          name: name
+          required: true
+          schema:
+            type: string
+        - description: Product Price
+          in: body
+          name: price
+          required: true
+          schema:
+            type: integer
+        - description: Product Description
+          in: body
+          name: description
+          required: true
+          schema:
+            type: string
+        - description: Product Images
+          in: body
+          name: images
+          required: true
+          schema:
+            type: string
+        - description: Product Rating
+          in: body
+          name: rating
+          required: true
+          schema:
+            type: number
+        - description: Product Stock
+          in: body
+          name: stock
+          required: true
+          schema:
+            type: integer
+        - description: Product Keywords
+          in: body
+          name: keywords
+          required: true
+          schema:
+            items:
+              type: string
+            type: array
+        - description: Product Number of Ratings
+          in: body
+          name: num_rating
+          required: true
+          schema:
+            type: integer
+        - description: Product Comments
+          in: body
+          name: comments
+          required: true
+          schema:
+            items:
+              $ref: "#/definitions/types.Comment"
+            type: array
+        - description: Product Category ID
+          in: body
+          name: category_id
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add Product
+      tags:
+        - Admin
+  /v1/ecommerce/product/{id}:
+    get:
+      consumes:
+        - application/json
+      description: List single product by id
+      parameters:
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: List single product by id
+      tags:
+        - User
+  /v1/ecommerce/products:
+    get:
+      consumes:
+        - application/json
+      description: List all products
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: List all products
+      tags:
+        - User
+  /v1/ecommerce/rating/{id}:
+    post:
+      consumes:
+        - application/json
+      description: Give rating
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Rating
+          in: body
+          name: rating
+          required: true
+          schema:
+            $ref: "#/definitions/types.Rating"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Give rating
+      tags:
+        - User
+  /v1/ecommerce/remove-favorite:
+    post:
+      consumes:
+        - application/json
+      description: user can remove product from their favorite
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+        - description: productId
+          in: body
+          name: productId
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Remove from Favorite
+      tags:
+        - User
+  /v1/ecommerce/search:
+    post:
+      consumes:
+        - application/json
+      description: Search product
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Search
+          in: body
+          name: search
+          required: true
+          schema:
+            type: string
+        - description: Limit
+          in: body
+          name: limit
+          required: true
+          schema:
+            type: integer
+        - description: Page
+          in: body
+          name: page
+          required: true
+          schema:
+            type: integer
+        - description: Offset
+          in: body
+          name: offset
+          required: true
+          schema:
+            type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Search product
+      tags:
+        - User
+  /v1/ecommerce/signup:
+    post:
+      consumes:
+        - application/json
+      description: user can signup by giving their details
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: User Signup
+      tags:
+        - User
+  /v1/ecommerce/unblock-user:
+    put:
+      consumes:
+        - application/json
+      description: unblock user by the admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: User Email
+          in: body
+          name: user_email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: unblock user
+      tags:
+        - Admin
+  /v1/ecommerce/update-order:
+    put:
+      consumes:
+        - application/json
+      description: Update order status by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Email
+          in: body
+          name: email
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Update Order Status
+      tags:
+        - Admin
+  /v1/ecommerce/update-product/:id:
+    put:
+      consumes:
+        - application/json
+      description: Update product by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Product Name
+          in: body
+          name: name
+          required: true
+          schema:
+            type: string
+        - description: Product Price
+          in: body
+          name: price
+          required: true
+          schema:
+            type: integer
+        - description: Product Description
+          in: body
+          name: description
+          required: true
+          schema:
+            type: string
+        - description: Product Images
+          in: body
+          name: images
+          required: true
+          schema:
+            type: string
+        - description: Product Rating
+          in: body
+          name: rating
+          required: true
+          schema:
+            type: number
+        - description: Product Stock
+          in: body
+          name: stock
+          required: true
+          schema:
+            type: integer
+        - description: Product Keywords
+          in: body
+          name: keywords
+          required: true
+          schema:
+            items:
+              type: string
+            type: array
+        - description: Product Number of Ratings
+          in: body
+          name: num_rating
+          required: true
+          schema:
+            type: integer
+        - description: Product Comments
+          in: body
+          name: comments
+          required: true
+          schema:
+            items:
+              $ref: "#/definitions/types.Comment"
+            type: array
+        - description: Product Category ID
+          in: body
+          name: category_id
+          required: true
+          schema:
+            type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Update Product
+      tags:
+        - Admin
+  /v1/ecommerce/update-stock/:id:
+    put:
+      consumes:
+        - application/json
+      description: Add stock by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: Stock
+          in: body
+          name: int
+          required: true
+          schema:
+            type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: Add Stock
+      tags:
+        - Admin
+  /v1/ecommerce/update-user:
+    put:
+      consumes:
+        - application/json
+      description: user can update their password
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: updatePassword
+          in: body
+          name: updatePassword
+          required: true
+          schema:
+            $ref: "#/definitions/types.UpdatePassword"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: update password
+      tags:
+        - User
+  /v1/ecommerce/users:
+    get:
+      consumes:
+        - application/json
+      description: List all users from the database by admin
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+        - ApiKeyAuth: []
+      summary: List all users
+      tags:
+        - Admin
+swagger: "2.0"
