@@ -7,6 +7,8 @@ import (
 
 	"github.com/PiehTVH/go-ecommerce/docs"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Route struct {
@@ -50,6 +52,36 @@ func (r routes) EcommerceUser(rg *gin.RouterGroup) {
 		}
 
 	}
+}
+
+func (r routes) EcommerceGlobalProductRoutes(rg *gin.RouterGroup) {
+	orderRouteGrouping := rg.Group("/ecommerce")
+	// orderRouteGrouping.Use(CORSMiddleware())
+	for _, route := range productGlobalRoutes {
+		switch route.Method {
+		case "GET":
+			orderRouteGrouping.GET(route.Pattern, route.HandlerFunc)
+		case "POST":
+			orderRouteGrouping.POST(route.Pattern, route.HandlerFunc)
+		case "OPTIONS":
+			orderRouteGrouping.OPTIONS(route.Pattern, route.HandlerFunc)
+		case "PUT":
+			orderRouteGrouping.PUT(route.Pattern, route.HandlerFunc)
+		case "DELETE":
+			orderRouteGrouping.DELETE(route.Pattern, route.HandlerFunc)
+		default:
+			orderRouteGrouping.GET(route.Pattern, func(c *gin.Context) {
+				c.JSON(200, gin.H{
+					"result": "Specify a valid http method with this route.",
+				})
+			})
+		}
+	}
+}
+
+func (r routes) Swagger(rg *gin.RouterGroup) {
+	orderRouteGrouping := rg.Group("/ecommerce")
+	orderRouteGrouping.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }
 
 func ClientRoutes() {

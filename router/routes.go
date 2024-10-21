@@ -19,3 +19,10 @@ var userRoutes = Routes{
 	Route{"Login User", http.MethodPost, constant.UserLoginRoute, controller.UserLogin},
 	Route{"Sign Out", http.MethodPost, constant.UserLogoutRoute, controller.SignOut},
 }
+
+var productGlobalRoutes = Routes{
+	Route{"List Product", http.MethodGet, constant.ListProductRoute, controller.ListProductsController},
+	Route{"Search Product", http.MethodPost, constant.SearchProductRoute, controller.SearchProductController},
+	Route{"List Category", http.MethodGet, constant.ListCategoryRoute, controller.ListCategoryController},
+	Route{"List Single Product", http.MethodGet, constant.ListSingleProductRoute, controller.ListSingleProductController},
+}
